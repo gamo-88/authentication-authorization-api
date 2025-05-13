@@ -3,6 +3,8 @@ import { prismaClient } from "..";
 import { compareSync, hashSync } from "bcrypt";
 import * as jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../secret";
+import { BadRequestException } from "../exception/bad_request";
+import { ErrorCode } from "../exception/root";
 
 export const getAllUsers = (req: Request, res: Response) => {
     res.send([])
@@ -18,7 +20,7 @@ export const signup = async (req: Request, res: Response)=>{
     let user = await prismaClient.user.findFirst({where: {email}});
 
     if(user){
-        throw  Error("Utilisateur deja present avec cette addresse mail");
+        throw new BadRequestException("Utilisateur deja present avec cette addresse mail", ErrorCode.USER_ALREADY_EXISTS);
     }
 
     user = await prismaClient.user.create({
@@ -39,11 +41,11 @@ export const signin = async (req: Request, res: Response)=>{
     let user = await prismaClient.user.findFirst({where: {email}});
 
     if(!user){
-        throw Error("Utilisateur non reconu veuillez vous inscrire");
+        throw new BadRequestException("Utilisateur non reconu veuillez vous inscrire", ErrorCode.USER_NOT_FOUND);
     }
 
     if (!compareSync(password, user.password)) {
-        throw  Error("Mot de passe incorrect");
+        throw  new BadRequestException("Mot de passe incorrect", ErrorCode.INCORRECT_PASSWORD);
     }
     const token = jwt.sign({
         userId: user.id

@@ -2,6 +2,7 @@ import express from 'express'
 import userRouter from "./routes/users"
 import { PORT } from './secret'
 import     { PrismaClient } from './generated/prisma'
+import { errorMiddleware } from './middleware/error'
 
 const app = express()
 
@@ -18,7 +19,7 @@ export const prismaClient =  new PrismaClient (
 
 app.use("/api/users", userRouter)
 
-
+app.use(errorMiddleware)
 app.listen(PORT,()=>{
     console.log(`Serveur en ecout sur le port ${PORT} en local`)
 })
