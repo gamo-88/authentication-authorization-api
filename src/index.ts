@@ -1,8 +1,9 @@
 import express from 'express'
 import userRouter from "./routes/users"
+import { PORT } from './secret'
 
 const app = express()
-const port = 3000
+
 
 // app.get('/', (req, res) => {
 //   res.send('Hello World')
@@ -11,6 +12,6 @@ const port = 3000
 app.use("/api/users", userRouter)
 
 
-app.listen(port,()=>{
-    console.log(`Serveur en ecout sur le port ${port}`)
+app.listen(PORT,()=>{
+    console.log(`Serveur en ecout sur le port ${PORT} en local`)
 })
