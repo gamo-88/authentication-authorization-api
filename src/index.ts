@@ -1,8 +1,15 @@
 import express from 'express'
 import userRouter from "./routes/users"
 import { PORT } from './secret'
+import     { PrismaClient } from './generated/prisma'
 
 const app = express()
+
+app.use(express.json())
+
+export const prismaClient =  new PrismaClient (
+    {log: ["query"]}
+)
 
 
 // app.get('/', (req, res) => {

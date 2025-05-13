@@ -155,11 +155,12 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mysql://gamo:gamo1234@localhost:3306/auth1?schema=public"
+        "value": null
       }
     }
   },
