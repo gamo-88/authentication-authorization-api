@@ -12,7 +12,6 @@ export const prismaClient =  new PrismaClient (
     {log: ["query"]}
 )
 
-
 // app.get('/', (req, res) => {
 //   res.send('Hello World')
 // })
