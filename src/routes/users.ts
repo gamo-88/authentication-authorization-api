@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAllUsers, getUserById, signin, signup } from "../controller/users";
+import { getAllUsers, getUserById, me, signin, signup } from "../controller/users";
+import { authMiddleware } from "../middleware/auth";
 
 
 const router = Router()
-
 
 
 
@@ -15,6 +15,7 @@ router.get("/", getAllUsers)
 router.get("/:id", getUserById)
 
 
+
 // pour la requette aux url "/api/users/" en post
 router.post("/", signup)
 
@@ -24,7 +25,10 @@ router.post("/signIn", signin)
 
 
 
+
 // faire la route /api/users/me qui retourne l'utilisateur connecté
+router.get("/me", [authMiddleware], me)
+
 
 
 // faire la route /api/users/delete qui supprime l'utilisateur

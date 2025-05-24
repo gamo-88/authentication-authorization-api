@@ -3,6 +3,7 @@ import userRouter from "./routes/users"
 import { PORT } from './secret'
 import     { PrismaClient } from './generated/prisma'
 import { errorMiddleware } from './middleware/error'
+// import './types/express';
 
 const app = express()
 

@@ -61,6 +61,7 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
     const { email, password } = req.body;
     let user = await prismaClient.user.findFirst({ where: { email } });
 
+
     if (!user) {
       throw new NotFoundException(
         "Utilisateur non reconu veuillez vous inscrire",
@@ -89,7 +90,10 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
 
 // faire le controller pour route /api/users/me qui retourne l'utilisateur connecté
 
-
+export const me = async(req: Request, res: Response, next: NextFunction)=>{
+  res.json(req.user)
+    
+}
 // faire le controller pour route /api/users/delete qui supprime l'utilisateur
 // faire le controller pour route /api/users/update qui met a jour un champ de l'user
 // Ajouter a user le champ picture en optionnel et gerer le fichiers dans mon serveur pour garder les photos de l'utilisateur "multer" 
